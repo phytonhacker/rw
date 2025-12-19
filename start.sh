@@ -16,10 +16,3 @@ echo "tmate session is running!"
 
 # Tartsd életben
 tail -f /dev/null
-```
-
-### `.railwayignore` (opcionális)
-```
-.git
-.github
-README.md
