@@ -21,11 +21,13 @@ RUN curl -L https://github.com/tmate-io/tmate/releases/download/2.4.0/tmate-2.4.
 # Munkakönyvtár
 WORKDIR /root
 
-# tmate indítása és session info megjelenítése
-CMD tmate -F & sleep 10 && \
+# tmate indítása socket-tel
+CMD tmate -S /tmp/tmate.sock new-session -d && \
+    tmate -S /tmp/tmate.sock wait tmate-ready && \
     echo "======================================" && \
     echo "TMATE SESSION INFO:" && \
-    tmate display -p "SSH: #{tmate_ssh}" && \
-    tmate display -p "Web: #{tmate_web}" && \
+    tmate -S /tmp/tmate.sock display -p "SSH: #{tmate_ssh}" && \
+    tmate -S /tmp/tmate.sock display -p "Web: #{tmate_web}" && \
     echo "======================================" && \
+    echo "Session running! Use the links above to connect." && \
     tail -f /dev/null
